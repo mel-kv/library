@@ -9,26 +9,7 @@ UserModel = get_user_model()
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField()
     last_name = forms.CharField()
-    date_of_birth = forms.DateField
-
-    class Meta:
-        model = UserModel
-        fields = (UserModel.USERNAME_FIELD,
-                  'password1',
-                  'password2',
-                  'first_name',
-                  'last_name',
-                  'date_of_birth',
-                  )
-        labels = {
-            'email': _('Email'),
-            'password1': _('Password'),
-            'password2': _('Repeat password'),
-            'first_name': _('First name'),
-            'last_name': _('Last name'),
-            'date_of_birth' : 'date_of_birth'
-
-        }
+    date_of_birth = forms.DateField()
 
     def save(self, commit=True):
         user = super().save(commit=commit)
@@ -45,3 +26,5 @@ class UserChangeForm(SignUpForm):
     class Meta:
         model = UserModel
         fields = ('email', 'password', 'first_name', 'last_name', 'date_of_birth')
+
+

@@ -1,7 +1,21 @@
 {% extends 'base.html' %}
+{% load cloudinary %}
+
 {% block content %}
+    <h1>Book Details</h1>
+
+    <div>
 
 
+        <h3> by {{ book.author.all|join:", "}}</h3><br>
 
+        {% cloudinary book.image format="jpg" height=226 resize="fill_pad" %}<br>
+    Genres: {{ book.genres.all|join:", " }}<br>
+    Pages: {{ book.pages }}<br>
+    Publisher: {{ book.publisher }}<br>
+    Description: {{ book.description|linebreaks }}<br>
+
+
+    </div>
 
 {% endblock %}

@@ -1,6 +1,10 @@
 from datetime import date
 
 import random
+
+from django import forms
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 from django.utils import timezone
 
 from django.contrib.auth.models import AbstractUser
@@ -17,9 +21,9 @@ class LUser(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
     first_name = models.CharField(max_length=30, )
     last_name = models.CharField(max_length=30, )
-    date_of_birth = models.DateField(default='1990-01-01')
+    date_of_birth = models.DateField()
     updated = models.DateField(auto_now=True)
-    # library_card_number = models.SmallIntegerField(editable=False, blank=True, null=True, max_length=10)
+    library_card_number = models.PositiveIntegerField(editable=False, unique=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -28,7 +32,6 @@ class LUser(AbstractUser):
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now, )
     slug = models.SlugField(max_length=55, editable=False, blank=False, null=False, unique=True)
-
 
     objects = CustomUserManager()
 
@@ -49,3 +52,16 @@ class LUser(AbstractUser):
         if not self.pk:
             self.slug = slugify(f"{self.full_name}-{random.randint(1, 101)}")
         super(LUser, self).save(*args, **kwargs)
+
+
+def generate_unique_library_card_number():
+    library_card_number_candidate = random.randint(1000000000, 2147483647)
+    if LUser.objects.filter(library_card_number__exact=library_card_number_candidate):
+        generate_unique_library_card_number()
+    else:
+        return library_card_number_candidate
+
+
+@receiver(pre_save, sender=LUser)
+def generate_unique_library_card(sender, instance, **kwargs):
+    instance.unique_library_card = generate_unique_library_card_number()

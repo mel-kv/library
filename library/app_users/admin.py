@@ -20,6 +20,6 @@ class UserAdmin(admin.ModelAdmin):
     date_hierarchy = 'date_joined'
     search_fields = ('email', 'first_name', 'last_name',)
     ordering = ('date_joined', 'is_staff', 'email',)
-    readonly_fields = ('date_joined', 'last_login', 'slug',)
+    readonly_fields = ('date_joined', 'last_login', 'slug', 'library_card_number')
 
 

@@ -1,11 +1,8 @@
-from django.shortcuts import render
-
 from django.contrib.auth import login, get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DeleteView, UpdateView, DetailView
-
 from library.app_users import forms
 
 UserModel = get_user_model()
@@ -16,8 +13,6 @@ class SignUpView(CreateView):
     form_class = forms.SignUpForm
     extra_context = {'title': 'Sign Up'}
 
-    # success_url = reverse_lazy('list events')
-
     def form_valid(self, form):
         result = super().form_valid(form)
         login(self.request, self.object)
@@ -25,7 +20,7 @@ class SignUpView(CreateView):
 
     def get_success_url(self):
         created_object = self.object
-        return reverse_lazy('profile details', kwargs={'pk': created_object.pk})
+        return reverse_lazy('details', kwargs={'slug': created_object.slug})
 
 
 class SignInView(LoginView):
@@ -75,7 +70,7 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         created_object = self.object
-        return reverse_lazy('users:profile details', kwargs={'pk': created_object.pk})
+        return reverse_lazy('users:details', kwargs={'slug': created_object.slug})
 
 
 class ProfileDeleteView(DeleteView):

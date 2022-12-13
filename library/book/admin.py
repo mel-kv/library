@@ -5,10 +5,10 @@ from library.book.models import Book
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ['title',  'originally_published', 'publisher', ]
-    list_filter = ['title', 'author', 'originally_published', 'genres', 'publisher']
-    search_fields = ['title', 'author', 'originally_published', 'genres', 'publisher']
-    ordering = ['title', 'author', 'originally_published', 'genres', 'publisher']
+    list_display = ['title','originally_published', 'publisher', 'series_name']
+    list_filter = ['title', 'author', 'originally_published','publisher', 'genres', 'series_name']
+    search_fields = ['title', 'author', 'originally_published', 'genres', 'publisher', 'series_name']
+    ordering = ['title', 'author', 'originally_published','publisher']
     date_hierarchy = 'originally_published'
-    readonly_fields = ('created', 'updated', 'slug',)
+    readonly_fields = ('created', 'updated', 'slug', )
 

@@ -1,32 +1,46 @@
+{% load bootstrap5 %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Milena Koeva">
+    <title>Library</title>
+
+    {% bootstrap_css %}
+    {{ form.media }} {# Adds widget's JS/CSS files from CDN #}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
 </head>
 <body>
+{#{% bootstrap_messages %}#}
 
-{% include 'nav_bar.html' %}
+<div class="container">
+    <header>
+        <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+            <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+                <span class="fs-4">Mel Library</span>
+            </a>
+            {% include 'nav_bar.html' %}
+        </div>
+    </header>
 
-{% block content %}
-{% endblock content %}
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
 
+    <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <p>Mel - @milena.koeva - SoftUni - 12/2022 - WebFramework</p>
+    </footer>
+</div>
 </body>
+
 </html>
 
-<style>
-    .footer {
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        background-color: darkblue;
-        color: white;
-        text-align: center;
-    }
-</style>
 
-<div class="footer">
-    <p>Mel - @milena.koeva - SoftUni - 12/2022 - WebFramework</p>
-</div>

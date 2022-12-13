@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load cloudinary %}
+{% block content %}
+    <h1>Author Details</h1>
+
+    <div>
+
+        <p>
+        <h3>{{ author.full_name }}</h3></p>
+        {% cloudinary author.image format="jpg" height=226 resize="fill_pad" %}<br>
+        <ul>
+            Has {{ author.book_author.count }} books:
+            {% for book in author.book_author.all %}
+                <li><a href="{% url 'books:details' slug=book.slug %}"> {{ book.title }}</a></li>
+            {% endfor %}
+            <div>
+                Date of Birth: {{ author.date_of_birth }}
+                {% if author.date_of_death %}
+                    Date of Birth: {{ author.date_of_death }}<br>
+                {% else %}
+                    (Age: {{ author.calculate_age }})<br>
+                {% endif %}
+                <br>
+                About Author: {{ author.about_info|linebreaks }}<br>
+
+            </div>
+        </ul>
+    </div>
+    {% buttons %}
+        <a href="{% url 'authors:edit' slug=author.slug %}"><input type="button" value="Edit"
+                                                                   class="btn btn-primary"/></a>
+        <a href="{% url 'authors:delete' slug=author.slug %}"><input type="button" value="Delete"
+                                                                     class="btn btn-danger"/></a>
+        <a href="{% url 'authors:all' %}"><input type="button" value="Back"
+                                                 class="btn btn-primary"/></a>
+    {% endbuttons %}
+{% endblock %}
