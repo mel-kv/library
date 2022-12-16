@@ -47,9 +47,10 @@ INSTALLED_APPS = [
     'library.genre',
     'library.app_users',
     'cloudinary',
-    # 'library.book_series',
+    'library.book_series',
     'bootstrap5',
     'bootstrap_datepicker_plus',
+
 
 
 ]

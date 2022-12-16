@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load cloudinary %}
+{% block content %}
+    <ol>
+        {% for s_book in object_list %}
+
+            <div>
+                {% cloudinary s_book.image format="jpg" width=220 height=100 crop="fill" %}<br>
+                <h2>{{ s_book.author.all|join:", " }}</h2><br>
+
+            </div>
+        {% endfor %}
+
+    </ol>
+
+{% endblock %}

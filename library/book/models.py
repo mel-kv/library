@@ -7,6 +7,7 @@ from django.template.defaultfilters import slugify
 import random
 
 from library.author.models import Author
+from library.book_series.models import BookSeries
 # from library.book_series.models import BookSeries
 from library.genre.models import Genre
 from library.publisher.models import Publisher
@@ -32,8 +33,8 @@ class Book(models.Model):
     isbn = models.PositiveIntegerField(unique=True, editable=False)
     pages = models.SmallIntegerField()
     series = models.BooleanField()
-    # series_name = models.ForeignKey(BookSeries, on_delete=models.DO_NOTHING, related_name="book_series", null=True,
-    #                                 blank=True)
+    series_name = models.ForeignKey(BookSeries, on_delete=models.DO_NOTHING, related_name="book_series", null=True,
+                                    blank=True)
     release_number_of_series = models.SmallIntegerField(null=True, blank=True)
     originally_published = models.DateField()
     status = models.CharField(max_length=3, choices=Status.choices, default=Status.AVAILABLE)

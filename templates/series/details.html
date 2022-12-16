@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form method="get">
+        <p>{{ bookseries.name }}</p>
+        <p>{{ bookseries.image }}</p>
+        {% csrf_token %}
+{#        <form>#}
+{#            <button type="submit" formaction="{% url 'users:profile edit' pk=request.user.pk %}">Edit</button>#}
+{#            <button type="submit" formaction="{% url 'users:profile delete' pk=request.user.pk %}">Delete</button>#}
+{#        </form>#}
+
+        </a>
+    </form>
+
+{% endblock %}

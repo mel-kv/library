@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+
+
+</script>{% comment %}{% endcomment %}
+    <h1> Add new Book </h1>
+    <div class="card" style="width: 36rem;">
+        <div class="card-body">
+            <form method="post" action="{% url 'books:create' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {% bootstrap_form form %}
+                {% buttons %}
+                    <button type="submit" class="btn btn-primary">Create</button>
+                {% endbuttons %}
+
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
