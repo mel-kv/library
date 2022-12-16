@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load cloudinary %}
+
+{% block content %}
+    <h1>My Profile</h1>
+
+    <div>
+
+        Email: {{ user.email }}<br>
+        {% if user.fist_name and user.last.name%}
+            Name: {{ user.full_name }}<br>
+        {% endif %}
+        {% if user.date_of_birth %}
+        Date of Birth: {{ user.date_of_birth }}<br>
+            {% endif %}
+        Library Card: {{ user.library_card_number }}<br>
+{#        {% if user.books_on_hold %}#}
+{#            {{ user.books_on_hold }}#}
+{#        {% endif %}#}
+{#        {% if user.books_checked_out %}#}
+{#            Checked Out Books: {{ user.books_checked_out }}#}
+{#        #}
+{#        {% endif %}#}
+
+
+    </div>
+
+{% endblock %}

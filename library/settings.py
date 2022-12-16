@@ -145,6 +145,7 @@ LOGIN_URL = reverse_lazy('signin')
 LOGOUT_REDIRECT_URL = reverse_lazy('index')
 
 
+
 cloudinary.config(
     cloud_name=os.environ['CLOUDINARY_NAME'],
     api_key=os.environ['CLOUDINARY_API_KEY'],
