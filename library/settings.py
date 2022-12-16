@@ -29,7 +29,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 AUTH_USER_MODEL = "app_users.LUser"
 # Application definition
 
@@ -50,8 +49,6 @@ INSTALLED_APPS = [
     'library.book_series',
     'bootstrap5',
     'bootstrap_datepicker_plus',
-
-
 
 ]
 
@@ -144,8 +141,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = reverse_lazy('signin')
 LOGOUT_REDIRECT_URL = reverse_lazy('index')
-
-
 
 cloudinary.config(
     cloud_name=os.environ['CLOUDINARY_NAME'],
