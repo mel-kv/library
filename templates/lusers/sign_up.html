@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load bootstrap5 %}
-{% load custom_filters %}
+
 
 {% block content %}
     <h1> Registration </h1>
@@ -9,13 +9,14 @@
         <div class="card-body">
             <form method="post" action="{% url 'users:sign up' %}">
                 {% csrf_token %}
-                {% bootstrap_field form.email placeholder="Email" %}
-                {% bootstrap_field form.password1 placeholder="Password" show_help=False %}
-                {% bootstrap_field form.password2 placeholder="Confirm Password" %}
-                {% bootstrap_field form.first_name placeholder="First name" %}
-                {% bootstrap_field form.last_name placeholder="Last name" %}
+            {% bootstrap_form form show_help=True %}
+{#                {% bootstrap_field form.email %}#}
+{#                {% bootstrap_field form.password1  show_help=False %}#}
+{#                {% bootstrap_field form.password2  %}#}
+{#                {% bootstrap_field form.first_name  %}#}
+{#                {% bootstrap_field form.last_name  %}#}
 {#                {% bootstrap_label 'Date of Birth' show_label=False %}#}
-                {% bootstrap_field form.date_of_birth placeholder="Date of Birth" %}
+{#                {% bootstrap_field form.date_of_birth  %}#}
 
                 {#                <p>{{ form.email|placeholder:'Email' }}</p>#}
                 {#                <p>{{ form.password1|placeholder:"Password" }}</p>#}

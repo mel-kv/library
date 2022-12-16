@@ -16,8 +16,8 @@ import cloudinary
 from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
+# BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -29,6 +29,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+
+AUTH_USER_MODEL = "app_users.LUser"
 # Application definition
 
 INSTALLED_APPS = [
@@ -45,10 +47,10 @@ INSTALLED_APPS = [
     'library.genre',
     'library.app_users',
     'cloudinary',
-    'library.book_series',
+    # 'library.book_series',
     'bootstrap5',
     'bootstrap_datepicker_plus',
-    'library.app_users.templatetags',
+
 
 ]
 
@@ -67,7 +69,7 @@ ROOT_URLCONF = 'library.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [os.path.join(BASE_DIR, "templates")]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -89,7 +91,7 @@ WSGI_APPLICATION = 'library.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'library_db',
+        'NAME': 'library_db_2',
         'USER': 'mel',
         'PASSWORD': 'pg14',
         'HOST': 'localhost',
@@ -130,7 +132,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / 'static/']
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -139,7 +143,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = reverse_lazy('signin')
 LOGOUT_REDIRECT_URL = reverse_lazy('index')
-AUTH_USER_MODEL = 'app_users.LUser'
+
 
 cloudinary.config(
     cloud_name=os.environ['CLOUDINARY_NAME'],

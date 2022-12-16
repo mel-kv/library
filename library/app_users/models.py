@@ -1,8 +1,6 @@
 from datetime import date
-
 import random
 
-from django import forms
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.utils import timezone
@@ -19,11 +17,11 @@ from library.app_users.managers import CustomUserManager
 class LUser(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
-    first_name = models.CharField(max_length=30, )
-    last_name = models.CharField(max_length=30, )
-    date_of_birth = models.DateField()
+    first_name = models.CharField(max_length=30, null=True, blank=True)
+    last_name = models.CharField(max_length=30, null=True, blank=True)
+    date_of_birth = models.DateField(null=True, blank=True)
     updated = models.DateField(auto_now=True)
-    library_card_number = models.PositiveIntegerField(editable=False, unique=True)
+    library_card_number = models.PositiveIntegerField(editable=False, unique=True, null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

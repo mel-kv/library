@@ -20,7 +20,7 @@ class SignUpView(CreateView):
 
     def get_success_url(self):
         created_object = self.object
-        return reverse_lazy('details', kwargs={'slug': created_object.slug})
+        return reverse_lazy('users:details', kwargs={'slug': created_object.slug})
 
 
 class SignInView(LoginView):
