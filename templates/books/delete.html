@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+    <h1> Delete Book</h1>
+    <form method="post" action="{% url 'books:delete' slug=book.slug %}">
+        {% csrf_token %}
+        <div class="card" style="width: 36rem;">
+            <div class="card-body">
+                <form method="post" action="{% url 'books:delete' slug=book.slug %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    Are you sure you want to delete {{ book.title }}?
+                    {% buttons %}
+                        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                        <a href="{% url 'books:all' %}">
+                            <input type="button" value="Back" class="btn btn-primary" /></a>
+
+                    {% endbuttons %}
+                </form>
+
+{% endblock %}

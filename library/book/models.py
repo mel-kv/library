@@ -31,13 +31,13 @@ class Book(models.Model):
     image = CloudinaryField('image')
     author = models.ManyToManyField(Author, related_name="book_author")
     genres = models.ManyToManyField(Genre, related_name="book_genre")
-    publisher = models.ForeignKey(Publisher, on_delete=models.DO_NOTHING, related_name="book_publisher")
+    publisher = models.ForeignKey(Publisher, on_delete=models.RESTRICT, related_name="book_publisher")
     isbn = models.PositiveIntegerField(unique=True, editable=False)
-    pages = models.SmallIntegerField()
-    series = models.BooleanField()
-    series_name = models.ForeignKey(BookSeries, on_delete=models.DO_NOTHING, related_name="book_series", null=True,
+    pages = models.PositiveIntegerField()
+
+    series_name = models.ForeignKey(BookSeries, on_delete=models.RESTRICT, related_name="book_series", null=True,
                                     blank=True)
-    release_number_of_series = models.SmallIntegerField(null=True, blank=True)
+    volume_number = models.SmallIntegerField(null=True, blank=True)
     originally_published = models.DateField()
     status = models.CharField(max_length=3, choices=Status.choices, default=Status.AVAILABLE)
     description = models.TextField()
@@ -46,10 +46,9 @@ class Book(models.Model):
     updated = models.DateField(auto_now=True)
     objects = models.Manager()
     available = AvailableBookManager()
-    reader = models.OneToOneField(LUser, on_delete=models.RESTRICT, blank=True, null=True, default=None, related_name='book_checkedout')
+    reader = models.ForeignKey(LUser, on_delete=models.RESTRICT, blank=True, null=True, default=None, related_name='book_checkedout')
     date_checked_out = models.DateField(blank=True, null=True, default=None)
     date_to_return = models.DateField(blank=True, null=True, default=None)
-
 
     def __str__(self):
         return f'{self.title} ({self.author})'

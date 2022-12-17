@@ -4,9 +4,14 @@
 
     {% if user.is_staff %}
         <a href="{% url 'books:create' %}"><input type="button" value="Create"
-                   class="btn btn-secondary"/></a>
+                   class="btn btn-secondary"/></a><br><br>
     {% endif %}
+    <form method="get" action="{% url 'books:all' %}">
+    <label>Search by Name of a Book
+        <input name="pattern" placeholder="Write here:"/>
 
+    </label>
+    <button>Search</button><br><br>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         {% for book in object_list %}
             <div class="col">
