@@ -62,7 +62,6 @@ class Book(models.Model):
             self.slug = slugify(f"{self.title}-{random.randint(1, 101)}")
         super(Book, self).save(*args, **kwargs)
 
-
 def generate_unique_isbn():
     isbn_candidate = random.randint(1000000000, 2147483647)
     if Book.objects.filter(isbn__exact=isbn_candidate):
