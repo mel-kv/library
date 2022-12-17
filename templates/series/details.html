@@ -1,15 +1,35 @@
 {% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load cloudinary %}
 {% block content %}
-    <form method="get">
-        <p>{{ bookseries.name }}</p>
-        <p>{{ bookseries.image }}</p>
-        {% csrf_token %}
-{#        <form>#}
-{#            <button type="submit" formaction="{% url 'users:profile edit' pk=request.user.pk %}">Edit</button>#}
-{#            <button type="submit" formaction="{% url 'users:profile delete' pk=request.user.pk %}">Delete</button>#}
-{#        </form>#}
+    <h1>Book Series Details</h1>
 
-        </a>
-    </form>
+    <div>
 
+        <p>
+        <h3>{{ bookseries.name }}</h3>
+        {% cloudinary bookseries.image format="jpg" height=226 resize="fill_pad" %}<br>
+        {{ bookseries.author.all|join:", " }}<br><br>
+
+        {#            Include {{ bookseries.count }} books:#}
+        {#            {% for book in bookseries.all %}#}
+        {#                <li><a href="{% url 'books:details' slug=book.slug %}"> {{ book.title }}</a></li>#}
+        {#            {% endfor %}#}
+
+
+        {#                About Author/s:#}
+        {#                {% for author in bookseries.author %}#}
+        {#                    {{ author.full_name }}<br>#}
+        {#                    {{ author.about_info|linebreaks }}#}
+        {#                {% endfor %}#}
+    </div>
+
+    {% buttons %}
+        <a href="{% url 'series:edit' slug=bookseries.slug %}"><input type="button" value="Edit"
+                                                                      class="btn btn-primary"/></a>
+        <a href="{% url 'series:delete' slug=bookseries.slug %}"><input type="button" value="Delete"
+                                                                        class="btn btn-danger"/></a>
+        <a href="{% url 'series:all' %}"><input type="button" value="Back"
+                                                class="btn btn-primary"/></a>
+    {% endbuttons %}
 {% endblock %}

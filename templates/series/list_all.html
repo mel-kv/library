@@ -1,16 +1,27 @@
 {% extends 'base.html' %}
 {% load cloudinary %}
 {% block content %}
-    <ol>
-        {% for s_book in object_list %}
 
-            <div>
-                {% cloudinary s_book.image format="jpg" width=220 height=100 crop="fill" %}<br>
-                <h2>{{ s_book.author.all|join:", " }}</h2><br>
-
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for bookseries in object_list %}
+            <div class="col">
+                <div class="card shadow-sm">
+                    {% cloudinary bookseries.image format="jpg" height=226 resize="fill_pad" %}<br>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ bookseries.name }}</h5>
+                        Authors:<br>
+                        <p class="card-text">{{ bookseries.author.all|join:", "}}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="{% url 'series:details' slug=bookseries.slug %}"
+                                   class="btn btn-sm btn-outline-secondary">Details</a>
+                            </div>
+                            <small class="text-muted"></small>
+                        </div>
+                    </div>
+                </div>
             </div>
         {% endfor %}
-
-    </ol>
+    </div>
 
 {% endblock %}
