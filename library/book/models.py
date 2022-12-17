@@ -1,3 +1,4 @@
+from datetime import date, timedelta
 from cloudinary.models import CloudinaryField
 import cloudinary.uploader
 from django.db import models
@@ -6,6 +7,7 @@ from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 import random
 
+from library.app_users.models import LUser
 from library.author.models import Author
 from library.book_series.models import BookSeries
 # from library.book_series.models import BookSeries
@@ -44,6 +46,10 @@ class Book(models.Model):
     updated = models.DateField(auto_now=True)
     objects = models.Manager()
     available = AvailableBookManager()
+    reader = models.OneToOneField(LUser, on_delete=models.RESTRICT, blank=True, null=True, default=None, related_name='book_checkedout')
+    date_checked_out = models.DateField(blank=True, null=True, default=None)
+    date_to_return = models.DateField(blank=True, null=True, default=None)
+
 
     def __str__(self):
         return f'{self.title} ({self.author})'
@@ -53,6 +59,8 @@ class Book(models.Model):
         indexes = [
             models.Index(fields=['-updated'])
         ]
+
+
 
     def get_absolute_url(self):
         return reverse("details", kwargs={"slug": self.slug})
@@ -78,3 +86,6 @@ def generate_isbn(sender, instance, **kwargs):
 @receiver(pre_delete, sender=Book)
 def photo_delete(sender, instance, **kwargs):
     cloudinary.uploader.destroy(instance.image.public_id)
+
+
+

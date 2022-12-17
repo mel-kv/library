@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+    <h1> Assign reader to the Book</h1>
+    <form method="post" action="{% url 'books:reader' slug=book.slug %}">
+        {% csrf_token %}
+
+
+        <br>
+
+
+        <br>
+        <div class="card" style="width: 36rem;">
+            <div class="card-body">
+                <form method="post" action="{% url 'books:reader' slug=book.slug %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {% bootstrap_form form %}
+
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a href="{% url 'books:reader' slug=book.slug %}"><input type="button" value="Back"
+                                                                                 class="btn btn-primary"/></a>
+
+
+                    {% endbuttons %}
+                </form>
+
+{% endblock %}

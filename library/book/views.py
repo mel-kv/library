@@ -2,6 +2,7 @@ from bootstrap_datepicker_plus.widgets import DatePickerInput
 from django.urls import reverse_lazy
 from django.views import generic
 
+from library.book.forms import BookForm
 from library.book.models import Book
 
 
@@ -28,13 +29,33 @@ class BookDetailsView(generic.DetailView):
 
 class BookUpdateView(generic.UpdateView):
     model = Book
-    fields = '__all__'
+    fields = ['title', 'image', 'author', 'genres',
+              'publisher', 'pages', 'series_name',
+              'release_number_of_series', 'originally_published',
+              'description']
+
     template_name = "books/edit.html"
 
     def get_success_url(self):
         created_object = self.object
         return reverse_lazy('books:details', kwargs={'slug': created_object.slug})
 
+
+class BookReaderView(generic.UpdateView):
+    model = Book
+    form_class = BookForm
+    template_name = "books/reader.html"
+
+    def get_success_url(self):
+        created_object = self.object
+        return reverse_lazy('books:all')
+
+    def get_form(self, **kwargs):
+        form = super().get_form()
+        form.fields['date_checked_out'].widget = DatePickerInput()
+        form.fields['date_to_return'].widget = DatePickerInput()
+
+        return form
 
 class BookDeleteView(generic.DeleteView):
     model = Book
@@ -49,4 +70,6 @@ class BookListDisplayView(generic.ListView):
     model = Book
     template_name = "books/list_all.html"
     fields = '__all__'
+
+
 
