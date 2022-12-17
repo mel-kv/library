@@ -70,7 +70,7 @@ class ProfileDetailsView(DetailView):
     #     context = super().get_context_data(**kwargs)
     #     return context
 
-    def get_object(self):
+    def get_object(self, **kwargs):
         return self.request.user
 
 
