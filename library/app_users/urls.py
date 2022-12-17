@@ -9,7 +9,6 @@ urlpatterns = [
     path('signin/', views.SignInView.as_view(), name='sign in'),
     path('signout/', views.SignOutView.as_view(), name='sign out'),
     path("password_change/", views.LPasswordChangeView.as_view(), name="password_change"),
-
     path('<slug:slug>/', include([
 
         path('', views.ProfileDetailsView.as_view(), name='details'),

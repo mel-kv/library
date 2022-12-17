@@ -78,7 +78,7 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
     model = UserModel
     template_name = 'lusers/edit.html'
     context_object_name = 'user'
-    fields = '__all__'
+    fields = ['email', 'first_name', 'last_name', 'date_of_birth']
 
     def get_success_url(self):
         created_object = self.object

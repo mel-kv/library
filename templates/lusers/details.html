@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load bootstrap5 %}
 {% load cloudinary %}
 
 {% block content %}
@@ -7,22 +8,32 @@
     <div>
 
         Email: {{ user.email }}<br>
-        {% if user.fist_name and user.last.name%}
+        {% if user.first_name and user.last_name %}
             Name: {{ user.full_name }}<br>
         {% endif %}
         {% if user.date_of_birth %}
-        Date of Birth: {{ user.date_of_birth }}<br>
-            {% endif %}
-        Library Card: {{ user.library_card_number }}<br>
-{#        {% if user.books_on_hold %}#}
-{#            {{ user.books_on_hold }}#}
-{#        {% endif %}#}
-{#        {% if user.books_checked_out %}#}
-{#            Checked Out Books: {{ user.books_checked_out }}#}
-{#        #}
-{#        {% endif %}#}
+            Date of Birth: {{ user.date_of_birth }}<br>
+        {% endif %}
+        {% if user.library_card is not None %}
+            Library Card: {{ user.library_card_number }}<br>
+        {% endif %}
+        <br>
+        <br>
+        {% if user.is_staff %}
+            This user is a part of Mel Library staff!<br>
+            <strong> Thank you for your hard work! :)</strong>
+        {% endif %}
 
-
+        {% buttons %}
+            <a href="{% url 'users:edit' slug=user.slug %}"><input type="button" value="Edit"
+                                                                   class="btn btn-primary"/></a>
+            <a href="{% url 'users:delete' slug=user.slug %}"><input type="button" value="Delete"
+                                                                     class="btn btn-danger"/></a>
+            <a href="{% url 'index' %}"><input type="button" value="Back"
+                                               class="btn btn-primary"/></a>
+            <br><br><br><br>
+            <a href="{% url 'users:password_change' %}"><input type="button" value="Change your password"
+                                               class="btn btn-primary"/></a>
+        {% endbuttons %}
     </div>
-
 {% endblock %}
