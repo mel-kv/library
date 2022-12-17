@@ -31,6 +31,7 @@ class SignUpView(CreateView):
     def get_form(self, **kwargs):
         form = super().get_form()
         form.fields['date_of_birth'].widget = DatePickerInput()
+        form.fields['date_of_birth'].widget.attrs = {'placeholder': 'mm/dd/yyyy'}
 
         return form
 
@@ -61,14 +62,10 @@ class SignOutView(LogoutView):
         return reverse_lazy("index")
 
 
-class ProfileDetailsView(DetailView):
+class ProfileDetailsView(LoginRequiredMixin, DetailView):
     template_name = 'lusers/details.html'
     model = UserModel
     fields = '__all__'
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     return context
 
     def get_object(self, **kwargs):
         return self.request.user
@@ -85,14 +82,17 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
         return reverse_lazy('users:details', kwargs={'slug': created_object.slug})
 
 
-class ProfileDeleteView(DeleteView):
+class ProfileDeleteView(LoginRequiredMixin, DeleteView):
     model = UserModel
     template_name = 'lusers/delete.html'
-    next_page = reverse_lazy('index')
-    success_url = reverse_lazy('index')
 
-    def post(self, *args, pk):
-        self.request.user.delete()
+    #
+    # def post(self, *args, slug):
+    #     self.request.user.delete()
+
+    def get_success_url(self):
+        created_object = self.object
+        return reverse_lazy('index')
 
 
 class LPasswordChangeView(PasswordChangeView):

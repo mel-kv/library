@@ -13,7 +13,7 @@ class LUserAdmin(UserAdmin):
     form = LUserChangeForm
     model = LUser
     list_display = ('email', 'first_name', 'last_name', 'date_joined', 'is_staff', 'slug',)
-    list_filter = ('email', 'first_name', 'last_name','is_staff', 'is_active',)
+    list_filter = ('email', 'first_name', 'last_name','is_staff', 'is_active', 'groups')
     fieldsets = (
         ('Credentials', {'fields': ('email', 'password',)}),
         (_('Personal info'), {'fields': ('first_name', 'last_name', 'date_of_birth',)}),

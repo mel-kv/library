@@ -14,9 +14,9 @@
         {% if user.date_of_birth %}
             Date of Birth: {{ user.date_of_birth }}<br>
         {% endif %}
-        {% if user.library_card is not None %}
-            Library Card: {{ user.library_card_number }}<br>
-        {% endif %}
+
+        Library Card: {{ user.library_card_number }}<br>
+
         <br>
         <br>
         {% if user.is_staff %}
@@ -35,6 +35,7 @@
             <br><br>
             <a href="{% url 'users:password_change' %}"><input type="button" value="Change your password"
                                                                class="btn btn-primary"/></a>
-        {% endbuttons %}
+        {% endbuttons %}<br><br>
+
     </div>
 {% endblock %}
