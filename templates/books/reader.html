@@ -5,12 +5,8 @@
     <h1> Assign reader to the Book</h1>
     <form method="post" action="{% url 'books:reader' slug=book.slug %}">
         {% csrf_token %}
+        <br><br>
 
-
-        <br>
-
-
-        <br>
         <div class="card" style="width: 36rem;">
             <div class="card-body">
                 <form method="post" action="{% url 'books:reader' slug=book.slug %}" enctype="multipart/form-data">

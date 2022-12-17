@@ -1,4 +1,6 @@
 from bootstrap_datepicker_plus.widgets import DatePickerInput
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -6,7 +8,7 @@ from library.book.forms import BookForm
 from library.book.models import Book
 
 
-class BookCreateView(generic.CreateView):
+class BookCreateView(UserPassesTestMixin, generic.CreateView):
     model = Book
     fields = ['title', 'image', 'author', 'genres',
               'publisher', 'pages', 'series_name',
@@ -24,6 +26,12 @@ class BookCreateView(generic.CreateView):
         created_object = self.object
         return reverse_lazy('books:details', kwargs={'slug': created_object.slug})
 
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def handle_no_permission(self):
+        return redirect('index')
+
 
 class BookDetailsView(generic.DetailView):
     model = Book
@@ -31,7 +39,7 @@ class BookDetailsView(generic.DetailView):
     template_name = "books/details.html"
 
 
-class BookUpdateView(generic.UpdateView):
+class BookUpdateView(UserPassesTestMixin, generic.UpdateView):
     model = Book
     fields = ['title', 'image', 'author', 'genres',
               'publisher', 'pages', 'series_name',
@@ -44,8 +52,14 @@ class BookUpdateView(generic.UpdateView):
         created_object = self.object
         return reverse_lazy('books:details', kwargs={'slug': created_object.slug})
 
+    def test_func(self):
+        return self.request.user.is_staff
 
-class BookReaderView(generic.UpdateView):
+    def handle_no_permission(self):
+        return redirect('index')
+
+
+class BookReaderView(UserPassesTestMixin, generic.UpdateView):
     model = Book
     form_class = BookForm
     template_name = "books/reader.html"
@@ -63,13 +77,26 @@ class BookReaderView(generic.UpdateView):
 
         return form
 
-class BookDeleteView(generic.DeleteView):
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def handle_no_permission(self):
+        return redirect('index')
+
+
+class BookDeleteView(UserPassesTestMixin, generic.DeleteView):
     model = Book
     template_name = "books/delete.html"
 
     def get_success_url(self):
         created_object = self.object
         return reverse_lazy('books:all')
+
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def handle_no_permission(self):
+        return redirect('index')
 
 
 class BookListDisplayView(generic.ListView):

@@ -46,7 +46,8 @@ class Book(models.Model):
     updated = models.DateField(auto_now=True)
     objects = models.Manager()
     available = AvailableBookManager()
-    reader = models.ForeignKey(LUser, on_delete=models.RESTRICT, blank=True, null=True, default=None, related_name='book_checkedout')
+    reader = models.ForeignKey(LUser, on_delete=models.RESTRICT, blank=True, null=True, default=None,
+                               related_name='book_checkedout')
     date_checked_out = models.DateField(blank=True, null=True, default=None)
     date_to_return = models.DateField(blank=True, null=True, default=None)
 
@@ -59,8 +60,6 @@ class Book(models.Model):
             models.Index(fields=['-updated'])
         ]
 
-
-
     def get_absolute_url(self):
         return reverse("details", kwargs={"slug": self.slug})
 
@@ -68,6 +67,7 @@ class Book(models.Model):
         if not self.pk:
             self.slug = slugify(f"{self.title}-{random.randint(1, 101)}")
         super(Book, self).save(*args, **kwargs)
+
 
 def generate_unique_isbn():
     isbn_candidate = random.randint(1000000000, 2147483647)
@@ -85,6 +85,3 @@ def generate_isbn(sender, instance, **kwargs):
 @receiver(pre_delete, sender=Book)
 def photo_delete(sender, instance, **kwargs):
     cloudinary.uploader.destroy(instance.image.public_id)
-
-
-

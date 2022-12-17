@@ -9,6 +9,7 @@
 
 
         <h3> by {{ book.author.all|join:", " }}</h3><br>
+
         {% if user.is_staff %}
 
             <a href="{% url 'books:reader' slug=book.slug %}"><input type="button" value="Check IN/OUT the book"
@@ -16,12 +17,14 @@
             Reader: {{ book.reader }}<br>
         {% endif %}
         Book Status: {{ book.status }}<br>
+        ISBN: {{ book.isbn }}<br>
         {% cloudinary book.image format="jpg" height=226 resize="fill_pad" %}<br>
         Genres: {{ book.genres.all|join:", " }}<br>
         Pages: {{ book.pages }}<br>
-        Originally Pubished: {{ book.originally_published }}<br>
+        Originally Published: {{ book.originally_published }}<br>
         {% if book.series_name %}
-            Part of Book Series: <a href="{% url 'series:details' slug=book.series_name.slug %}">{{ book.series_name }}</a><br>
+            Part of Book Series:
+            <a href="{% url 'series:details' slug=book.series_name.slug %}">{{ book.series_name }}</a><br>
             Book {{ book.volume_number }} of {{ book.series_name.books_in_series }}<br>
         {% endif %}
         Publisher: <a href="{% url 'publishers:details' slug=book.publisher.slug %}">{{ book.publisher }}</a><br>

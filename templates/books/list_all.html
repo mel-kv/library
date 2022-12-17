@@ -4,34 +4,35 @@
 
     {% if user.is_staff %}
         <a href="{% url 'books:create' %}"><input type="button" value="Create"
-                   class="btn btn-secondary"/></a><br><br>
+                                                  class="btn btn-secondary"/></a><br><br>
     {% endif %}
     <form method="get" action="{% url 'books:all' %}">
-    <label>Search by Name of a Book
-        <input name="pattern" placeholder="Write here:"/>
+        <label>Search by Name of a Book
+            <input name="pattern" placeholder="Write here:"/>
 
-    </label>
-    <button>Search</button><br><br>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        {% for book in object_list %}
-            <div class="col">
-                <div class="card shadow-sm">
-                    {% cloudinary book.image format="jpg" height=400 resize="fill_pad" %}<br>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ book.title }}</h5>
-                        <p class="card-text">{{ book.description|truncatewords:30 }}</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="{% url 'books:details' slug=book.slug %}"
-                                   class="btn btn-sm btn-outline-secondary">Details</a>
+        </label>
+        <button>Search</button>
+        <br><br>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for book in object_list %}
+                <div class="col">
+                    <div class="card shadow-sm">
+                        {% cloudinary book.image format="jpg" height=400 resize="fill_pad" %}<br>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ book.title }}</h5>
+                            <p class="card-text">{{ book.description|truncatewords:30 }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="{% url 'books:details' slug=book.slug %}"
+                                       class="btn btn-sm btn-outline-secondary">Details</a>
+                                </div>
+                                <small class="text-muted">Book Status: {{ book.get_status_display }}<br></small>
                             </div>
-                            <small class="text-muted"></small>
                         </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
 
 
 

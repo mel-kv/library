@@ -13,7 +13,8 @@
                     {% bootstrap_form form %}
                     {% buttons %}
                         <button type="submit" class="btn btn-primary">Edit</button>
-                        <a href="{% url 'authors:details' slug=author.slug %}"><input type="button" value="Back" class="btn btn-primary" /></a>
+                        <a href="{% url 'authors:details' slug=author.slug %}"><input type="button" value="Back"
+                                                                                      class="btn btn-primary"/></a>
 
                     {% endbuttons %}
                 </form>

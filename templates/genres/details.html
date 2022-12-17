@@ -15,7 +15,7 @@
         <ul>
         <li><a href="{% url 'books:details' slug=book.slug %}">{{ book.title }} - {{ book.author.all|join:", " }}</a></li><br>
         </ul>{% empty %}
-        No books from this Publisher yet.<br><br>
+            No books from this Publisher yet.<br><br>
     {% endfor %}
 
     </div>

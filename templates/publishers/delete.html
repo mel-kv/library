@@ -7,14 +7,15 @@
         {% csrf_token %}
         <div class="card" style="width: 36rem;">
             <div class="card-body">
-                <form method="post" action="{% url 'publishers:delete' slug=publisher.slug %}" enctype="multipart/form-data">
+                <form method="post" action="{% url 'publishers:delete' slug=publisher.slug %}"
+                      enctype="multipart/form-data">
                     {% csrf_token %}
 
                     Are you sure you want to delete {{ publisher.name }}?
                     {% buttons %}
                         <button type="submit" class="btn btn-danger">Yes, Delete</button>
                         <a href="{% url 'publishers:all' %}">
-                            <input type="button" value="Back" class="btn btn-primary" /></a>
+                            <input type="button" value="Back" class="btn btn-primary"/></a>
 
                     {% endbuttons %}
                 </form>
