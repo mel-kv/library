@@ -139,7 +139,7 @@ STATICFILES_DIRS = (
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = reverse_lazy('signin')
+LOGIN_URL = reverse_lazy('sign in')
 LOGOUT_REDIRECT_URL = reverse_lazy('index')
 
 cloudinary.config(

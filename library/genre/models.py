@@ -5,33 +5,8 @@ import random
 
 
 class Genre(models.Model):
-    TYPES = (
-        ('Fantasy', 'Fantasy'),
-        ('Historical fiction', 'Historical fiction'),
-        ('Short stories', 'Short stories'),
-        ('Poetry', 'Poetry'),
-        ('Thrillers', 'Thrillers'),
-        ('War', 'War'),
-        ('Women’s fiction', 'Women’s fiction'),
-        ('Fairy tales, fables, and folk tales', 'Fairy tales, fables, and folk tales'),
-        ('Crime', 'Crime'),
-        ('Plays', 'Plays'),
-        ('Young adult', 'Young adult'),
-        ('Romance', 'Romance'),
-        ('Classics', 'Classics'),
-        ('Humour and satire', 'Humour and satire'),
-        ('Horror', 'Horror'), ('Mystery', 'Mystery'),
-        ('Science fiction', 'Science fiction'),
-        ('Literary fiction', 'Literary fiction'),
-        ('Adventure stories', 'Adventure stories'),
-        ('Autobiography and memoir', 'Autobiography and memoir'),
-        ('Biography', 'Biography'),
-        ('Essays', 'Essays'),
-        ('Non-fiction novel', 'Non-fiction novel'),
-        ('Self-help', 'Self-help'),
 
-    )
-    type = models.CharField(max_length=40, choices=TYPES)
+    type = models.CharField(max_length=40, )
     description = models.TextField()
     slug = models.SlugField(max_length=55, editable=True,  blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)

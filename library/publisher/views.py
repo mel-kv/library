@@ -7,6 +7,7 @@ from library.publisher.models import Publisher
 class PublisherCreateView(generic.CreateView):
     model = Publisher
     fields = '__all__'
+
     template_name = "publishers/create.html"
 
     def get_success_url(self):

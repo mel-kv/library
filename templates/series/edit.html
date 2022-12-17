@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+    <h1> Edit Book Series</h1>
+    <form method="post" action="{% url 'series:edit' slug=bookseries.slug %}">
+        {% csrf_token %}
+        <div class="card" style="width: 36rem;">
+            <div class="card-body">
+                <form method="post" action="{% url 'series:edit' slug=bookseries.slug %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {% bootstrap_form form %}
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                        <a href="{% url 'series:details' slug=bookseries.slug %}"><input type="button" value="Back" class="btn btn-primary" /></a>
+
+                    {% endbuttons %}
+                </form>
+
+{% endblock %}

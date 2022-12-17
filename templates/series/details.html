@@ -11,17 +11,12 @@
         {% cloudinary bookseries.image format="jpg" height=226 resize="fill_pad" %}<br>
         {{ bookseries.author.all|join:", " }}<br><br>
 
-                    Include {{ bookseries.book_series.count }} books:
-                    {% for book in bookseries.book_series.all|order_by:bookseries.book_series.book.release_number_of_series %}
-                        <li><a href="{% url 'books:details' slug=book.slug %}"> {{ book.title }}</a></li>
-                    {% endfor %}
+        Include {{ bookseries.books_in_series }} books:
+        {% for book in bookseries.book_series.all %}
+            <li><a href="{% url 'books:details' slug=book.slug %}"> {{ book.title }} ({{ book.volume_number }})</a></li>
 
-
-        {#                About Author/s:#}
-        {#                {% for author in bookseries.author %}#}
-        {#                    {{ author.full_name }}<br>#}
-        {#                    {{ author.about_info|linebreaks }}#}
-        {#                {% endfor %}#}
+        {% endfor %}<br><br>
+        Description: {{ bookseries.description|linebreaks }}
     </div>
 
     {% buttons %}

@@ -14,6 +14,7 @@ class BookSeries(models.Model):
     image = CloudinaryField('image', blank=True, null=True)
     slug = models.SlugField(max_length=100, editable=False, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
+    books_in_series = models.PositiveIntegerField()
 
     def __str__(self):
         return self.name
