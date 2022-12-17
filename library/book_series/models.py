@@ -13,6 +13,7 @@ class BookSeries(models.Model):
     author = models.ManyToManyField(Author, related_name="series_author")
     image = CloudinaryField('image', blank=True, null=True)
     slug = models.SlugField(max_length=100, editable=False, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.name
