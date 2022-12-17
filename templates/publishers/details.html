@@ -16,7 +16,7 @@
 
     {% for book in publisher.book_publisher.all %}
         <ul>
-        <li><a href="{% url 'books:details' slug=book.slug %}"{{ book.title }}></a></li><br>
+        <li><a href="{% url 'books:details' slug=book.slug %}">{{ book.title }}</a></li><br>
         </ul>{% empty %}
         No books from this Publisher yet.<br><br>
     {% endfor %}

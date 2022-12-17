@@ -11,6 +11,13 @@
         <strong>What to expect?</strong><br>
         {{ genre.description|linebreaks }}<br>
 
+        {% for book in genre.book_genre.all %}
+        <ul>
+        <li><a href="{% url 'books:details' slug=book.slug %}">{{ book.title }} - {{ book.author.all|join:", " }}</a></li><br>
+        </ul>{% empty %}
+        No books from this Publisher yet.<br><br>
+    {% endfor %}
+
     </div>
     {% buttons %}
         {% if user.is_staff %}
