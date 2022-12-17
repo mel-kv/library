@@ -6,3 +6,4 @@ class IndexView(generic.TemplateView):
 
     class Meta:
         title = 'Home Page'
+
