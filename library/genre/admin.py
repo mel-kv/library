@@ -5,7 +5,7 @@ from library.genre.models import Genre
 
 @admin.register(Genre)
 class GenreAdmin(admin.ModelAdmin):
-    list_display = ['id', 'type']
+    list_display = ['id', 'type', 'slug']
     list_filter = ['type']
     search_fields = ['type']
     prepopulated_fields = {'slug': ('type',)}
@@ -13,6 +13,6 @@ class GenreAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Info', {'fields': ('type', 'description', 'slug')}),
     )
-    readonly_fields = ('created', 'updated')
+    readonly_fields = ('created', 'updated', 'slug')
 
 

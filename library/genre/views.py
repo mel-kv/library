@@ -7,7 +7,7 @@ from library.genre.models import Genre
 
 class GenreCreateView(generic.CreateView):
     model = Genre
-    fields = '__all__'
+    fields = ['type', 'description']
     template_name = "genres/create.html"
 
     def get_success_url(self):
@@ -37,7 +37,7 @@ class GenreDeleteView(generic.DeleteView):
 
     def get_success_url(self):
         created_object = self.object
-        return reverse_lazy('genres:delete')
+        return reverse_lazy('genres:all')
 
 
 class GenreListView(generic.ListView):

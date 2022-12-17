@@ -8,7 +8,7 @@ class Genre(models.Model):
 
     type = models.CharField(max_length=40, )
     description = models.TextField()
-    slug = models.SlugField(max_length=55, editable=True,  blank=True, null=True)
+    slug = models.SlugField(max_length=55, editable=False,  blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
 
