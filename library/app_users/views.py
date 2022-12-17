@@ -1,9 +1,15 @@
+from bootstrap_datepicker_plus.widgets import DatePickerInput
+
 from django.contrib.auth import login, get_user_model
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
+
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DeleteView, UpdateView, DetailView
 from library.app_users import forms
+from library.app_users.forms import LSetPasswordForm
 
 UserModel = get_user_model()
 
@@ -22,6 +28,17 @@ class SignUpView(CreateView):
         created_object = self.object
         return reverse_lazy('users:details', kwargs={'slug': created_object.slug})
 
+    def get_form(self, **kwargs):
+        form = super().get_form()
+        form.fields['date_of_birth'].widget = DatePickerInput()
+
+        return form
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('index')
+        return super(SignUpView, self).get(request, *args, **kwargs)
+
 
 class SignInView(LoginView):
     template_name = 'lusers/sign_in.html'
@@ -29,6 +46,11 @@ class SignInView(LoginView):
 
     def get_success_url(self):
         return reverse_lazy("index")
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('index')
+        return super(SignInView, self).get(request, *args, **kwargs)
 
 
 class SignOutView(LogoutView):
@@ -39,7 +61,7 @@ class SignOutView(LogoutView):
         return reverse_lazy("index")
 
 
-class UsersList(LoginRequiredMixin, ListView):
+class UsersListView(LoginRequiredMixin, ListView):
     model = UserModel
     template_name = 'lusers/list_all.html'
 
@@ -47,6 +69,11 @@ class UsersList(LoginRequiredMixin, ListView):
         context = super().get_context_data(*args, **kwargs)
 
         return context
+
+    # def get(self, request, *args, **kwargs):
+    #     if request.user.is_superuser:
+    #         return redirect('index')
+    #     return super(UsersListView, self).get(request, *args, **kwargs)
 
 
 class ProfileDetailsView(DetailView):
@@ -81,3 +108,9 @@ class ProfileDeleteView(DeleteView):
 
     def post(self, *args, pk):
         self.request.user.delete()
+
+
+class LPasswordChangeView(PasswordChangeView):
+    template_name = 'lusers/password_reset_confirm.html'
+    success_url = reverse_lazy('index')
+    form_class = forms.LSetPasswordForm
