@@ -61,21 +61,6 @@ class SignOutView(LogoutView):
         return reverse_lazy("index")
 
 
-class UsersListView(LoginRequiredMixin, ListView):
-    model = UserModel
-    template_name = 'lusers/list_all.html'
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-
-        return context
-
-    # def get(self, request, *args, **kwargs):
-    #     if request.user.is_superuser:
-    #         return redirect('index')
-    #     return super(UsersListView, self).get(request, *args, **kwargs)
-
-
 class ProfileDetailsView(DetailView):
     template_name = 'lusers/details.html'
     model = UserModel
