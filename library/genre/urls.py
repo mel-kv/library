@@ -6,7 +6,9 @@ app_name = 'genres'
 
 
 urlpatterns = [
+
     path('create/', views.GenreCreateView.as_view(), name='create'),
+    path('', views.GenreListView.as_view(), name='all'),
     path('<slug:slug>/', include([
         path('', views.GenreDetailsView.as_view(), name='details'),
         path('edit/', views.GenreUpdateView.as_view(), name='edit'),
