@@ -14,8 +14,14 @@
     Pages: {{ book.pages }}<br>
     Publisher: {{ book.publisher }}<br>
     Description: {{ book.description|linebreaks }}<br>
-
-
     </div>
+     {% buttons %}
+        <a href="{% url 'books:edit' slug=books.slug %}"><input type="button" value="Edit"
+                                                                   class="btn btn-primary"/></a>
+        <a href="{% url 'books:delete' slug=books.slug %}"><input type="button" value="Delete"
+                                                                     class="btn btn-danger"/></a>
+        <a href="{% url 'books:all' %}"><input type="button" value="Back"
+                                                 class="btn btn-primary"/></a>
+    {% endbuttons %}
 
 {% endblock %}
