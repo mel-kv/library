@@ -3,22 +3,21 @@
 {% block content %}
 
     {% if user.is_staff %}
-        <a href="{% url 'series:create' %}"><input type="button" value="Create"
+        <a href="{% url 'genres:create' %}"><input type="button" value="Create"
                    class="btn btn-secondary"/></a>
     {% endif %}
 
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        {% for bookseries in object_list %}
+    <div class="row row-cols-1">
+        {% for genre in object_list %}
             <div class="col">
                 <div class="card shadow-sm">
-                    {% cloudinary bookseries.image format="jpg" height=226 resize="fill_pad" %}<br>
+
                     <div class="card-body">
-                        <h5 class="card-title">{{ bookseries.name }}</h5>
-                        Authors:<br>
-                        <p class="card-text">{{ bookseries.author.all|join:", "}}</p>
+                        <h5 class="card-title">{{ genre.type }}</h5>
+                        <p class="card-text">{{ genre.description|truncatewords:30 }}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <a href="{% url 'series:details' slug=bookseries.slug %}"
+                                <a href="{% url 'genres:details' slug=genre.slug %}"
                                    class="btn btn-sm btn-outline-secondary">Details</a>
                             </div>
                             <small class="text-muted"></small>
@@ -28,5 +27,11 @@
             </div>
         {% endfor %}
     </div>
+
+
+
+
+
+
 
 {% endblock %}

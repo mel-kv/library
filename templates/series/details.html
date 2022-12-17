@@ -11,10 +11,10 @@
         {% cloudinary bookseries.image format="jpg" height=226 resize="fill_pad" %}<br>
         {{ bookseries.author.all|join:", " }}<br><br>
 
-        {#            Include {{ bookseries.count }} books:#}
-        {#            {% for book in bookseries.all %}#}
-        {#                <li><a href="{% url 'books:details' slug=book.slug %}"> {{ book.title }}</a></li>#}
-        {#            {% endfor %}#}
+                    Include {{ bookseries.book_series.count }} books:
+                    {% for book in bookseries.book_series.all|order_by:bookseries.book_series.book.release_number_of_series %}
+                        <li><a href="{% url 'books:details' slug=book.slug %}"> {{ book.title }}</a></li>
+                    {% endfor %}
 
 
         {#                About Author/s:#}
@@ -25,10 +25,13 @@
     </div>
 
     {% buttons %}
-        <a href="{% url 'series:edit' slug=bookseries.slug %}"><input type="button" value="Edit"
-                                                                      class="btn btn-primary"/></a>
-        <a href="{% url 'series:delete' slug=bookseries.slug %}"><input type="button" value="Delete"
-                                                                        class="btn btn-danger"/></a>
+        {% if user.is_staff %}
+
+            <a href="{% url 'series:edit' slug=bookseries.slug %}"><input type="button" value="Edit"
+                                                                          class="btn btn-primary"/></a>
+            <a href="{% url 'series:delete' slug=bookseries.slug %}"><input type="button" value="Delete"
+                                                                            class="btn btn-danger"/></a>
+        {% endif %}
         <a href="{% url 'series:all' %}"><input type="button" value="Back"
                                                 class="btn btn-primary"/></a>
     {% endbuttons %}

@@ -23,7 +23,8 @@
             This user is a part of Mel Library staff!<br>
             <strong> Thank you for your hard work! :)</strong>
         {% endif %}
-
+        <br>
+        <br>
         {% buttons %}
             <a href="{% url 'users:edit' slug=user.slug %}"><input type="button" value="Edit"
                                                                    class="btn btn-primary"/></a>
@@ -31,9 +32,9 @@
                                                                      class="btn btn-danger"/></a>
             <a href="{% url 'index' %}"><input type="button" value="Back"
                                                class="btn btn-primary"/></a>
-            <br><br><br><br>
+            <br><br>
             <a href="{% url 'users:password_change' %}"><input type="button" value="Change your password"
-                                               class="btn btn-primary"/></a>
+                                                               class="btn btn-primary"/></a>
         {% endbuttons %}
     </div>
 {% endblock %}

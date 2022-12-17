@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load cloudinary %}
+
+{% block content %}
+    <h1>Publisher Details</h1><br>
+
+    <div>
+
+    <h4>Publisher: <strong>{{ publisher.name }}</strong></h4><br>
+    <strong>About:</strong><br>
+    <strong>Year Founded:</strong>{{ publisher.year_founded }}<br>
+    {{ publisher.description|linebreaks }}<br>
+
+        <strong>Books from this publisher:</strong><br>
+
+    {% for book in publisher.book_publisher.all %}
+        <ul>
+        <li><a href="{% url 'books:details' slug=book.slug %}"{{ book.title }}></a></li><br>
+        </ul>{% empty %}
+        No books from this Publisher yet.<br><br>
+    {% endfor %}
+
+
+    </div>
+    {% buttons %}
+        {% if user.is_staff %}
+
+            <a href="{% url 'publishers:edit' slug=publisher.slug %}"><input type="button" value="Edit"
+                                                                             class="btn btn-primary"/></a>
+    <a href="{% url 'publishers:delete' slug=publisher.slug %}"><input type="button" value="Delete"
+                                                                       class="btn btn-danger"/></a>
+{% endif %}
+    <a href="{% url 'publishers:all' %}"><input type="button" value="Back"
+                                                class="btn btn-primary"/></a>
+{% endbuttons %}
+
+{% endblock %}

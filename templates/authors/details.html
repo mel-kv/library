@@ -5,9 +5,7 @@
     <h1>Author Details</h1>
 
     <div>
-
-        <p>
-        <h3>{{ author.full_name }}</h3></p>
+        <h3>{{ author.full_name }}</h3>
         {% cloudinary author.image format="jpg" height=226 resize="fill_pad" %}<br>
         <ul>
             Has {{ author.book_author.count }} books:
@@ -28,10 +26,13 @@
         </ul>
     </div>
     {% buttons %}
-        <a href="{% url 'authors:edit' slug=author.slug %}"><input type="button" value="Edit"
-                                                                   class="btn btn-primary"/></a>
-        <a href="{% url 'authors:delete' slug=author.slug %}"><input type="button" value="Delete"
-                                                                     class="btn btn-danger"/></a>
+        {% if user.is_staff %}
+
+            <a href="{% url 'authors:edit' slug=author.slug %}"><input type="button" value="Edit"
+                                                                       class="btn btn-primary"/></a>
+            <a href="{% url 'authors:delete' slug=author.slug %}"><input type="button" value="Delete"
+                                                                         class="btn btn-danger"/></a>
+        {% endif %}
         <a href="{% url 'authors:all' %}"><input type="button" value="Back"
                                                  class="btn btn-primary"/></a>
     {% endbuttons %}

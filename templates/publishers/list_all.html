@@ -1,24 +1,25 @@
 {% extends 'base.html' %}
 {% load cloudinary %}
 {% block content %}
-
-    {% if user.is_staff %}
-        <a href="{% url 'books:create' %}"><input type="button" value="Create"
+        {% if user.is_staff %}
+        <a href="{% url 'publishers:create' %}"><input type="button" value="Create"
                    class="btn btn-secondary"/></a>
     {% endif %}
 
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        {% for book in object_list %}
+    <div class="row row-cols-1
+">
+        {% for publisher in object_list %}
             <div class="col">
                 <div class="card shadow-sm">
-                    {% cloudinary book.image format="jpg" height=400 resize="fill_pad" %}<br>
+
                     <div class="card-body">
-                        <h5 class="card-title">{{ book.title }}</h5>
-                        <p class="card-text">{{ book.description|truncatewords:30 }}</p>
+                        <h5 class="card-title">{{ publisher.name }}</h5>
+                        <p class="card-text">{{ publisher.year_founded }}</p>
+                        <p class="card-text">{{ publisher.description|truncatewords:30 }}</p>
+
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <a href="{% url 'books:details' slug=book.slug %}"
-                                   class="btn btn-sm btn-outline-secondary">Details</a>
+                                <a href="{% url 'publishers:details' slug=publisher.slug %}" class="btn btn-sm btn-outline-secondary">Details</a>
                             </div>
                             <small class="text-muted"></small>
                         </div>
@@ -27,11 +28,6 @@
             </div>
         {% endfor %}
     </div>
-
-
-
-
-
 
 
 {% endblock %}

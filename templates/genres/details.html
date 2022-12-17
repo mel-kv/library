@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load cloudinary %}
+
+{% block content %}
+    <h1>Genre Details</h1><br>
+
+    <div>
+
+        <h4>Genre: <strong>{{ genre.type }}</strong></h4><br>
+        <strong>What to expect?</strong><br>
+        {{ genre.description|linebreaks }}<br>
+
+    </div>
+    {% buttons %}
+        {% if user.is_staff %}
+
+            <a href="{% url 'genres:edit' slug=genre.slug %}"><input type="button" value="Edit"
+                                                                    class="btn btn-primary"/></a>
+            <a href="{% url 'genres:delete' slug=genre.slug %}"><input type="button" value="Delete"
+                                                                      class="btn btn-danger"/></a>
+        {% endif %}
+        <a href="{% url 'genres:all' %}"><input type="button" value="Back"
+                                               class="btn btn-primary"/></a>
+    {% endbuttons %}
+
+{% endblock %}

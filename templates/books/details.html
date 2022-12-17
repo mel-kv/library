@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load bootstrap5 %}
 {% load cloudinary %}
 
 {% block content %}
@@ -7,21 +8,24 @@
     <div>
 
 
-        <h3> by {{ book.author.all|join:", "}}</h3><br>
+        <h3> by {{ book.author.all|join:", " }}</h3><br>
 
         {% cloudinary book.image format="jpg" height=226 resize="fill_pad" %}<br>
-    Genres: {{ book.genres.all|join:", " }}<br>
-    Pages: {{ book.pages }}<br>
-    Publisher: {{ book.publisher }}<br>
-    Description: {{ book.description|linebreaks }}<br>
+        Genres: {{ book.genres.all|join:", " }}<br>
+        Pages: {{ book.pages }}<br>
+        Publisher: <a href="{% url 'publishers:details' slug=book.publisher.slug %}">{{ book.publisher }}</a><br>
+        Description: {{ book.description|linebreaks }}<br>
     </div>
-     {% buttons %}
-        <a href="{% url 'books:edit' slug=books.slug %}"><input type="button" value="Edit"
-                                                                   class="btn btn-primary"/></a>
-        <a href="{% url 'books:delete' slug=books.slug %}"><input type="button" value="Delete"
-                                                                     class="btn btn-danger"/></a>
+    {% buttons %}
+        {% if user.is_staff %}
+
+            <a href="{% url 'books:edit' slug=book.slug %}"><input type="button" value="Edit"
+                                                                    class="btn btn-primary"/></a>
+            <a href="{% url 'books:delete' slug=book.slug %}"><input type="button" value="Delete"
+                                                                      class="btn btn-danger"/></a>
+        {% endif %}
         <a href="{% url 'books:all' %}"><input type="button" value="Back"
-                                                 class="btn btn-primary"/></a>
+                                               class="btn btn-primary"/></a>
     {% endbuttons %}
 
 {% endblock %}

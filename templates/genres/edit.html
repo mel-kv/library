@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+    <h1> Edit Genre</h1>
+    <form method="post" action="{% url 'genres:edit' slug=genre.slug %}">
+        {% csrf_token %}
+        <div class="card" style="width: 36rem;">
+            <div class="card-body">
+                <form method="post" action="{% url 'genres:edit' slug=genre.slug %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {% bootstrap_form form %}
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                        <a href="{% url 'genres:edit' slug=genre.slug %}"><input type="button" value="Back" class="btn btn-primary" /></a>
+
+                    {% endbuttons %}
+                </form>
+
+{% endblock %}
