@@ -16,10 +16,8 @@
 
                     {% buttons %}
                         <button type="submit" class="btn btn-primary">Save</button>
-                        <a href="{% url 'books:reader' slug=book.slug %}"><input type="button" value="Back"
+                        <a href="{% url 'books:details' slug=book.slug %}"><input type="button" value="Back"
                                                                                  class="btn btn-primary"/></a>
-
-
                     {% endbuttons %}
                 </form>
 

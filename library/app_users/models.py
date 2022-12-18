@@ -40,7 +40,6 @@ class LUser(AbstractUser):
     def __str__(self):
         return f'{self.full_name} - {self.is_staff} ({self.calculate_age})'
 
-
     @property
     def calculate_age(self):
         today = date.today()
@@ -50,19 +49,17 @@ class LUser(AbstractUser):
     def save(self, *args, **kwargs):
         if not self.pk:
             self.slug = slugify(f"{self.full_name}-{random.randint(1, 101)}")
-        if not self.library_card_number:
-            self.library_card_number = generate_unique_library_card_number()
         super(LUser, self).save(*args, **kwargs)
 
 
-def generate_unique_library_card_number():
+def __generate_unique_library_card_number():
     library_card_number_candidate = random.randint(1000000000, 2147483647)
     if LUser.objects.filter(library_card_number__exact=library_card_number_candidate):
-        generate_unique_library_card_number()
+        __generate_unique_library_card_number()
     else:
         return library_card_number_candidate
 
 
 @receiver(pre_save, sender=LUser)
 def generate_unique_library_card(sender, instance, **kwargs):
-    instance.unique_library_card = generate_unique_library_card_number()
+    instance.library_card_number = __generate_unique_library_card_number()

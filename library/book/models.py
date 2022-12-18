@@ -69,17 +69,17 @@ class Book(models.Model):
         super(Book, self).save(*args, **kwargs)
 
 
-def generate_unique_isbn():
+def __generate_unique_isbn():
     isbn_candidate = random.randint(1000000000, 2147483647)
     if Book.objects.filter(isbn__exact=isbn_candidate):
-        generate_unique_isbn()
+        __generate_unique_isbn()
     else:
         return isbn_candidate
 
 
 @receiver(pre_save, sender=Book)
 def generate_isbn(sender, instance, **kwargs):
-    instance.isbn = generate_unique_isbn()
+    instance.isbn = __generate_unique_isbn()
 
 
 @receiver(pre_delete, sender=Book)
